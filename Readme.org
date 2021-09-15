@@ -1,0 +1,35 @@
+#+title: Blokanoid
+* O que é
+
+*Blokanoid* é um clone do jogo Arkanoid desenvolvido completamente em C++ com auxílio da biblioteca [[https://www.raylib.com][raylib]], a qual conta com inúmeras funções interessantes para desenvolvimento de jogos de uma forma geral e, ao mesmo tempo, sendo organizada em segmentos os quais incluem tais funções. Instruções para compilação serão apresentadas em seções subsequentes. 
+
+* Membros do grupo
+
+|---------------------------------+------------|
+| Nome                            |         RA |
+|---------------------------------+------------|
+| Leon Ferreira Bellini           | 22218002-8 |
+| Pedro Freitas Magalhães Barbosa | 22218013-5 |
+| Felipe Maciel de Sousa          | 22218042-4 |
+| Guilherme Ormond Sampaio        | 22218007-7 |
+|---------------------------------+------------|
+
+* TODO Progresso [0/3]
+
+- [-] Escrita do README
+  - [X] Introdução
+  - [X] Membros do grupo
+  - [X] Controle básico de progresso
+  - [ ] Instruções de compilação
+- [ ] Definição de um Makefile
+  - [ ] Compilação para sistemas GNU/Linux
+  - [ ] Compilação para Windows (mingw32)
+- [ ] O jogo
+  - [ ] Classe ~Game~
+  - [ ] Classe/struct ~Level~
+  - [ ] *undefined* ~Menu~
+  - [ ] Implementação de *power ups*
+  - [ ] Classe ~Player~
+
+* TODO Instruções de compilação
+
