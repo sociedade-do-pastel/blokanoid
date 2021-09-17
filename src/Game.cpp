@@ -1,4 +1,4 @@
-#include "../include/Game.hpp"
+#include "Game.hpp"
 
 Game::Game(int width, int height) : m_screenWidth(width), m_screenHeight(height)
 {
