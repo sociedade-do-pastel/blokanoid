@@ -15,12 +15,12 @@ OBJS := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(notdir $(SRC)))
 DEPS := $(patsubst %.o, %.d, $(OBJS))
 
 all: $(OBJ_DIR) $(OBJS)
-	$(CC) $(CC_FLAGS) $(OBJS) -o $(EXECUTABLE)
+	$(CC) $(CC_FLAGS) $(OBJS) -o $(EXECUTABLE) $(LINK_FLAGS) $(LIB_FLAGS)
 
 -include $(DEPS)
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp 
-	$(CC) $(CC_FLAGS) $(LINK_FLAGS) $(LIB_FLAGS) -MD -o $@ $<
+	$(CC) $(CC_FLAGS) -MD -o $@ -c $<
 
 
 $(OBJ_DIR):
