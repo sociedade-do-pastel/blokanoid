@@ -2,10 +2,12 @@
 
 int main(int argc, char *argv[])
 {
-    Game game(1280, 720);
+    Game game;
+	bool success = game.init("Blokanoid", 1280, 720, false, 60);
 	
-	if (bool success = game.initialize(); success)
+	if (success)
 		game.runLoop();
-	
+
+	game.shutdown();
     return 0;
 }

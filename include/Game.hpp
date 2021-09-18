@@ -5,16 +5,16 @@
 class Game
 {
 public:
-    Game(int width, int height);
+    Game();
     ~Game();
 
-	bool initialize();
-	void runLoop();
+    bool init(const char* title, int width, int height, bool isFullscreen,
+              int targetFPS);
+    void runLoop();
+    void shutdown();
+
 private:
-	void processInput();
-	void updateGame();
-	void generateOutput();
-private:
-	int m_screenWidth;
-	int m_screenHeight;
+    void processInput();
+    void update();
+    void draw();
 };

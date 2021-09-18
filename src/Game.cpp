@@ -1,6 +1,6 @@
 #include "../include/Game.hpp"
 
-Game::Game(int width, int height) : m_screenWidth(width), m_screenHeight(height)
+Game::Game()
 {
 }
 
@@ -8,31 +8,45 @@ Game::~Game()
 {
 }
 
-bool Game::initialize()
+bool Game::init(const char* title, int width, int height, bool isFullscreen,
+                int targetFPS)
 {
-	InitWindow(m_screenWidth, m_screenHeight, "Blokanoid");
-    return true;
+    if (isFullscreen) {
+        width  = GetScreenWidth();
+        height = GetScreenHeight();
+        SetConfigFlags(FLAG_FULLSCREEN_MODE);
+    }
+
+    InitWindow(width, height, title);
+    SetTargetFPS(targetFPS);
+
+    return IsWindowReady();
 }
 
 void Game::runLoop()
 {
-	while (!WindowShouldClose()) {
-		processInput();
-		updateGame();
-		generateOutput();
-	}
+    while (!WindowShouldClose()) {
+        processInput();
+        update();
+        draw();
+    }
+}
+
+void Game::shutdown()
+{
+    CloseWindow();
 }
 
 void Game::processInput()
 {
 }
 
-void Game::updateGame()
+void Game::update()
 {
 }
 
-void Game::generateOutput()
+void Game::draw()
 {
-	BeginDrawing();
-	EndDrawing();
+    BeginDrawing();
+    EndDrawing();
 }
