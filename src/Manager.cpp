@@ -35,10 +35,44 @@ Entity* Manager::addEntity()
 
 void Manager::drawEntities()
 {
-	DrawComponent* d;
-	for (auto& e : entities) {
-		d = e->getComponent<DrawComponent>();
-		if (d != nullptr)
-			d->draw();
-	}
+    DrawComponent* d;
+    for (auto& e : entities) {
+        d = e->getComponent<DrawComponent>();
+        if (d != nullptr)
+            d->draw();
+    }
+}
+
+void Manager::checkCollision()
+{
+    std::vector<Entity*> en;
+    for (auto& e : entities) {
+        if (e->getComponent<CollisionComponent>() != nullptr)
+            en.push_back(e.get());
+    }
+
+    Rectangle rec1;
+    Rectangle rec2;
+
+    for (auto it1 = en.begin(); it1 != en.end(); ++it1) {
+        for (auto it2 = it1 + 1; it2 != en.end(); ++it2) {
+            rec1 = {(*it1)->getComponent<TransformComponent>()->position.x,
+                    (*it1)->getComponent<TransformComponent>()->position.y,
+                    (*it1)->getComponent<TransformComponent>()->size.x,
+                    (*it1)->getComponent<TransformComponent>()->size.y};
+
+            rec2 = {(*it2)->getComponent<TransformComponent>()->position.x,
+                    (*it2)->getComponent<TransformComponent>()->position.y,
+                    (*it2)->getComponent<TransformComponent>()->size.x,
+                    (*it2)->getComponent<TransformComponent>()->size.y};
+
+            if (CheckCollisionRecs(rec1, rec2)) {
+				std::string tag1 = (*it1)->getComponent<CollisionComponent>()->getTag();
+				std::string tag2 = (*it2)->getComponent<CollisionComponent>()->getTag();
+
+				(*it1)->getComponent<CollisionComponent>()->executeCallback(*it2);
+				(*it2)->getComponent<CollisionComponent>()->executeCallback(*it1);
+            }
+        }
+    }
 }

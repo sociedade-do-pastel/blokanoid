@@ -1,9 +1,10 @@
 #pragma once
 
+#include <algorithm>
 #include <memory>
 #include <vector>
-#include "Entity.hpp"
 #include "Components.hpp"
+#include "Entity.hpp"
 
 class Manager
 {
@@ -15,6 +16,7 @@ public:
     void refresh();
     Entity* addEntity();
     void drawEntities();
+    void checkCollision();
 
 private:
     std::vector<std::unique_ptr<Entity>> entities;

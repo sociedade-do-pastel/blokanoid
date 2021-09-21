@@ -1,18 +1,18 @@
 #pragma once
 
-#include <string>
 #include "Components.hpp"
 #include "Entity.hpp"
 
-class Paddle
+class Wall
 {
 public:
-    Paddle(Entity* e, Vector2 pos, Vector2 size);
-    ~Paddle();
+    Wall(Entity* e, Vector2 pos, Vector2 size);
+    ~Wall();
 
-    static void inputHandler(TransformComponent* t);
     static void collisionCallback(Entity* self, Entity* other);
-
+	
 private:
     Entity* m_entity{nullptr};
+    Vector2 m_pos;
+    Vector2 m_size;
 };

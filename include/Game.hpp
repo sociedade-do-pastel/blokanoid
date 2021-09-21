@@ -7,6 +7,7 @@
 #include "../include/Entity.hpp"
 #include "../include/Manager.hpp"
 #include "../include/Paddle.hpp"
+#include "../include/Wall.hpp"
 
 class Game
 {
@@ -25,5 +26,4 @@ private:
     void draw();
 
     Manager m_manager{};
-    Paddle m_paddle;
 };
