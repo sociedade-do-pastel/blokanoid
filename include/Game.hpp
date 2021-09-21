@@ -2,9 +2,11 @@
 
 #include <raylib.h>
 
+#include "../include/BlockMap.hpp"
 #include "../include/Components.hpp"
 #include "../include/Entity.hpp"
 #include "../include/Manager.hpp"
+#include "../include/Paddle.hpp"
 
 class Game
 {
@@ -23,4 +25,5 @@ private:
     void draw();
 
     Manager m_manager{};
+    Paddle m_paddle;
 };

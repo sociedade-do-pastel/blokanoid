@@ -17,7 +17,7 @@ public:
     Vector2 size;
     Vector2 velocity{0, 0};
     int scale;
-    int speed{2};
+    int speed{4};
 
 private:
 };
