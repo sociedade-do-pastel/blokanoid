@@ -2,7 +2,6 @@
 CC = g++
 EXECUTABLE = blokanoid
 CC_FLAGS = -w --std=c++17
-LINK_FLAGS = -shared
 LIB_FLAGS = -lraylib
 
 # default directories
@@ -15,7 +14,7 @@ OBJS := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(notdir $(SRC)))
 DEPS := $(patsubst %.o, %.d, $(OBJS))
 
 all: $(OBJ_DIR) $(OBJS)
-	$(CC) $(CC_FLAGS) $(OBJS) -o $(EXECUTABLE) $(LINK_FLAGS) $(LIB_FLAGS)
+	$(CC) $(CC_FLAGS) $(OBJS) -o $(EXECUTABLE) $(LIB_FLAGS)
 
 -include $(DEPS)
 
