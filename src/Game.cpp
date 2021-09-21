@@ -17,6 +17,7 @@ bool Game::init(const char* title, int width, int height, bool isFullscreen,
         SetConfigFlags(FLAG_FULLSCREEN_MODE);
     }
 
+    SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(width, height, title);
     SetTargetFPS(targetFPS);
 
@@ -29,6 +30,7 @@ void Game::runLoop()
         processInput();
         update();
         draw();
+		m_manager.refresh();
     }
 }
 
@@ -43,10 +45,15 @@ void Game::processInput()
 
 void Game::update()
 {
+    m_manager.update();
 }
 
 void Game::draw()
 {
     BeginDrawing();
+
+    ClearBackground(WHITE);
+    m_manager.drawEntities();
+
     EndDrawing();
 }
