@@ -13,7 +13,7 @@ public:
 
     void update();
     void refresh();
-    Entity& addEntity();
+    Entity* addEntity();
     void drawEntities();
 
 private:

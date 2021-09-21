@@ -1,21 +1,22 @@
 #pragma once
 
+#include <functional>
+#include <raylib.h>
+
 #include "AbstractComponent.hpp"
 #include "Entity.hpp"
 #include "TransformComponent.hpp"
 
-// foward declaration
-class Entity;
-
 class InputComponent : public AbstractComponent
 {
 public:
-    InputComponent();
+    InputComponent(std::function<void(TransformComponent*)> f);
     ~InputComponent();
 
     void init() override;
     void update() override;
 
 private:
-	TransformComponent* transform{nullptr};
+    TransformComponent* m_transform{nullptr};
+    std::function<void(TransformComponent*)> m_inputFunction;
 };
