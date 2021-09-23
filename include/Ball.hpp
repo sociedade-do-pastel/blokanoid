@@ -1,13 +1,12 @@
 #pragma once
 
-#include <string>
+#include <raylib.h>
 #include "Components.hpp"
 #include "Entity.hpp"
 
-class Paddle
+class Ball
 {
 public:
-    static void makeEntity(Entity* e, Vector2 pos, Vector2 size);
-    static void inputHandler(Entity* t);
+    static void makeEntity(Entity*, int x, int y, int w, int h, Color color);
     static void collisionCallback(Entity* self, Entity* other);
 };

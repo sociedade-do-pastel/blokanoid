@@ -6,4 +6,5 @@
 #include "DrawComponent.hpp"
 #include "InputComponent.hpp"
 #include "LayerComponent.hpp"
+#include "MovementComponent.hpp"
 #include "TransformComponent.hpp"

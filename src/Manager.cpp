@@ -1,4 +1,5 @@
 #include "../include/Manager.hpp"
+#include <iostream>
 
 Manager::Manager()
 {
@@ -66,10 +67,7 @@ void Manager::checkCollision()
                     (*it2)->getComponent<TransformComponent>()->size.x,
                     (*it2)->getComponent<TransformComponent>()->size.y};
 
-            if (CheckCollisionRecs(rec1, rec2)) {
-				std::string tag1 = (*it1)->getComponent<CollisionComponent>()->getTag();
-				std::string tag2 = (*it2)->getComponent<CollisionComponent>()->getTag();
-
+            if (CheckCollisionRecs(rec1, rec2)) {				
 				(*it1)->getComponent<CollisionComponent>()->executeCallback(*it2);
 				(*it2)->getComponent<CollisionComponent>()->executeCallback(*it1);
             }

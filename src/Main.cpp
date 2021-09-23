@@ -3,7 +3,7 @@
 int main(int argc, char *argv[])
 {
     Game game;
-	bool success = game.init("Blokanoid", 1280, 720, false, 60);
+	bool success = game.init("Blokanoid", 600, 800, false, 60);
 	
 	if (success)
 		game.runLoop();

@@ -6,11 +6,6 @@
 class Wall
 {
 public:
-    Wall(Entity* e, Vector2 pos, Vector2 size);
-    ~Wall();
-
+    static void makeEntity(Entity* e, Vector2 pos, Vector2 size);
     static void collisionCallback(Entity* self, Entity* other);
-	
-private:
-    Entity* m_entity{nullptr};
 };

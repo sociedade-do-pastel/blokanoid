@@ -2,6 +2,7 @@
 
 #include <raylib.h>
 
+#include "../include/Ball.hpp"
 #include "../include/BlockMap.hpp"
 #include "../include/Components.hpp"
 #include "../include/Entity.hpp"

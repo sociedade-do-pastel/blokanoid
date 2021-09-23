@@ -10,7 +10,7 @@
 class InputComponent : public AbstractComponent
 {
 public:
-    InputComponent(std::function<void(TransformComponent*)> f);
+    InputComponent(std::function<void(Entity*)> f);
     ~InputComponent();
 
     void init() override;
@@ -18,5 +18,5 @@ public:
 
 private:
     TransformComponent* m_transform{nullptr};
-    std::function<void(TransformComponent*)> m_inputFunction;
+    std::function<void(Entity*)> m_inputFunction;
 };

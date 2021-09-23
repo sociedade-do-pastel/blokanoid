@@ -22,8 +22,9 @@ public:
                 if (v.at(i).at(j) == 0)
                     continue;
 
-                Block(m->addEntity(), pos.x + blockW * j, pos.y + blockH * i,
-                      blockW, blockH, v.at(i).at(j));
+                Block::makeEntity(m->addEntity(), pos.x + blockW * j,
+                                  pos.y + blockH * i, blockW, blockH,
+                                  v.at(i).at(j));
             }
         }
     }

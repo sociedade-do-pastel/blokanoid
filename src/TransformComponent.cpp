@@ -16,6 +16,5 @@ void TransformComponent::init()
 
 void TransformComponent::update()
 {
-    position.x += velocity.x * speed;
-    position.y += velocity.y * speed;
+   
 }
