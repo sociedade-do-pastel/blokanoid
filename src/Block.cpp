@@ -3,7 +3,7 @@
 Block::Block(Entity* e, int x, int y, int w, int h, int layers)
 {
     e->addComponent<TransformComponent>(x, y, w, h);
-    e->addComponent<ColorComponent>(getLayerColor(layers));
+    e->addComponent<LayerComponent>(layers);
     e->addComponent<DrawComponent>();
 }
 
@@ -11,24 +11,12 @@ Block::~Block()
 {
 }
 
-void Block::init()
+void Block::collisionCallback(Entity* self, Entity* other)
 {
-}
-
-Color Block::getLayerColor(int layers)
-{
-    switch (layers) {
-    case 1:
-        return RED;
-    case 2:
-        return BLUE;
-    case 3:
-        return GREEN;
-    case 4:
-        return YELLOW;
-    case 5:
-        return PINK;
-    default:
-        return {0, 0, 0, 0};
+    auto tag = other->getComponent<CollisionComponent>()->getTag();
+    if (tag == "ball") {
+        self->getComponent<LayerComponent>()->layers -= 1;
+		if (self->getComponent<LayerComponent>()->layers == 0)
+			self->setState(Entity::State::Dead);
     }
 }

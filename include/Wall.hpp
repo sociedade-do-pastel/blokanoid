@@ -13,6 +13,4 @@ public:
 	
 private:
     Entity* m_entity{nullptr};
-    Vector2 m_pos;
-    Vector2 m_size;
 };
