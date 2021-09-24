@@ -8,7 +8,8 @@ void Wall::makeEntity(Entity* e, Vector2 pos, Vector2 size)
     e->addComponent<DrawComponent>();
 }
 
-void Wall::collisionCallback(Entity* self, Entity* other)
+void Wall::collisionCallback(Entity* self, std::string tag, Rectangle colRec,
+                             Rectangle otherRec)
 {
     return;
 }

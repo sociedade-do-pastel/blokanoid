@@ -17,12 +17,13 @@ void Manager::update()
 
 void Manager::refresh()
 {
-    entities.erase(std::remove_if(entities.begin(), entities.end(),
-                                  [](auto& e) {
-                                      if (e->getState() == Entity::State::Dead)
-                                          return true;
-                                      return false;
-                                  }),
+    auto eraseFunc = [](auto& e) {
+        if (e->getState() == Entity::State::Dead)
+            return true;
+        return false;
+    };
+	
+    entities.erase(std::remove_if(entities.begin(), entities.end(), eraseFunc),
                    entities.end());
 }
 
@@ -57,19 +58,16 @@ void Manager::checkCollision()
 
     for (auto it1 = en.begin(); it1 != en.end(); ++it1) {
         for (auto it2 = it1 + 1; it2 != en.end(); ++it2) {
-            rec1 = {(*it1)->getComponent<TransformComponent>()->position.x,
-                    (*it1)->getComponent<TransformComponent>()->position.y,
-                    (*it1)->getComponent<TransformComponent>()->size.x,
-                    (*it1)->getComponent<TransformComponent>()->size.y};
+            rec1 = (*it1)->getComponent<TransformComponent>()->getRec();
+            rec2 = (*it2)->getComponent<TransformComponent>()->getRec();
 
-            rec2 = {(*it2)->getComponent<TransformComponent>()->position.x,
-                    (*it2)->getComponent<TransformComponent>()->position.y,
-                    (*it2)->getComponent<TransformComponent>()->size.x,
-                    (*it2)->getComponent<TransformComponent>()->size.y};
+            if (CheckCollisionRecs(rec1, rec2)) {
+                auto c1          = (*it1)->getComponent<CollisionComponent>();
+                auto c2          = (*it2)->getComponent<CollisionComponent>();
+                Rectangle colRec = GetCollisionRec(rec1, rec2);
 
-            if (CheckCollisionRecs(rec1, rec2)) {				
-				(*it1)->getComponent<CollisionComponent>()->executeCallback(*it2);
-				(*it2)->getComponent<CollisionComponent>()->executeCallback(*it1);
+                c1->executeCallback(c2->getTag(), colRec, rec2);
+                c2->executeCallback(c1->getTag(), colRec, rec1);
             }
         }
     }

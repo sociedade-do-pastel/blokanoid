@@ -9,24 +9,10 @@ void Ball::makeEntity(Entity* e, int x, int y, int w, int h, Color color)
     e->addComponent<DrawComponent>();
 }
 
-void Ball::collisionCallback(Entity* self, Entity* other)
+void Ball::collisionCallback(Entity* self, std::string tag, Rectangle colRec,
+                             Rectangle otherRec)
 {
-
-    auto tag = other->getComponent<CollisionComponent>()->getTag();
-    auto m   = self->getComponent<TransformComponent>();
-    auto n   = other->getComponent<TransformComponent>();
-
-    Rectangle rec1 = {self->getComponent<TransformComponent>()->position.x,
-                      self->getComponent<TransformComponent>()->position.y,
-                      self->getComponent<TransformComponent>()->size.x,
-                      self->getComponent<TransformComponent>()->size.y};
-
-    Rectangle rec2 = {other->getComponent<TransformComponent>()->position.x,
-                      other->getComponent<TransformComponent>()->position.y,
-                      other->getComponent<TransformComponent>()->size.x,
-                      other->getComponent<TransformComponent>()->size.y};
-
-    auto colRec = GetCollisionRec(rec1, rec2);
+    auto m = self->getComponent<TransformComponent>();
 
     if (tag == "block" || tag == "wall") {
 
@@ -41,7 +27,7 @@ void Ball::collisionCallback(Entity* self, Entity* other)
         }
 
         // bateu verticalmente
-        if (colRec.width >= colRec.height) {
+        else if (colRec.width >= colRec.height) {
             if (m->position.y >= colRec.y)
                 m->position.y += colRec.height;
             else
@@ -51,8 +37,7 @@ void Ball::collisionCallback(Entity* self, Entity* other)
         }
     }
     else if (tag == "paddle") {
-
-        m->position.y = m->position.y - n->size.y;
+        m->position.y -= colRec.height;
         self->getComponent<MovementComponent>()->direction.y *= -1;
     }
 }

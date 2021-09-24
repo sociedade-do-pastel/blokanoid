@@ -21,16 +21,15 @@ void Paddle::inputHandler(Entity* self)
         m->direction.x = 0;
 }
 
-void Paddle::collisionCallback(Entity* self, Entity* other)
+void Paddle::collisionCallback(Entity* self, std::string tag, Rectangle colRec,
+                               Rectangle otherRec)
 {
-    auto tag = other->getComponent<CollisionComponent>()->getTag();
+	auto m = self->getComponent<TransformComponent>();
+	
     if (tag == "wall") {
-        auto m = self->getComponent<TransformComponent>();
-        auto n = other->getComponent<TransformComponent>();
-
-        if (m->position.x > n->position.x)
-            m->position.x = n->position.x + n->size.x;
+        if (m->position.x >= colRec.x)
+            m->position.x += colRec.width;
         else
-            m->position.x = n->position.x - m->size.x;
+            m->position.x -= colRec.width;
     }
 }

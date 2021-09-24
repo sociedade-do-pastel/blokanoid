@@ -13,6 +13,8 @@ public:
     void init() override;
     void update() override;
 
+	Rectangle getRec() const;
+
     Vector2 position;
     Vector2 size;
     Vector2 velocity{0, 0};

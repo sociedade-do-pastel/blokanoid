@@ -8,9 +8,9 @@ void Block::makeEntity(Entity* e, int x, int y, int w, int h, int layers)
     e->addComponent<DrawComponent>();
 }
 
-void Block::collisionCallback(Entity* self, Entity* other)
+void Block::collisionCallback(Entity* self, std::string tag, Rectangle colRec,
+                              Rectangle otherRec)
 {
-    auto tag = other->getComponent<CollisionComponent>()->getTag();
     if (tag == "ball") {
         self->getComponent<LayerComponent>()->layers -= 1;
         if (self->getComponent<LayerComponent>()->layers == 0)

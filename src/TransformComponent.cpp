@@ -16,5 +16,9 @@ void TransformComponent::init()
 
 void TransformComponent::update()
 {
-   
+}
+
+Rectangle TransformComponent::getRec() const
+{
+    return Rectangle{position.x, position.y, size.x * scale, size.y * scale};
 }
