@@ -41,7 +41,7 @@ bool Game::init(const char* title, int width, int height, bool isFullscreen,
                        {150.0f, 20.0f});
 
     Ball::makeEntity(m_manager.addEntity(), GetScreenWidth() / 2.0, 680, 10, 10,
-                     ORANGE);
+                     WHITE);
 
     return IsWindowReady();
 }
@@ -63,6 +63,10 @@ void Game::shutdown()
 
 void Game::processInput()
 {
+    if (IsKeyPressed(KEY_P)) {
+        m_manager.pause(is_paused);
+        is_paused = !is_paused;
+    }
 }
 
 void Game::update()
@@ -77,8 +81,13 @@ void Game::draw()
 
     ClearBackground({30, 30, 30});
     m_manager.drawEntities();
-	DrawText("Lifes: X X X", 10, 15, 25, WHITE);
-	DrawText("Blocks remaining: 000", 320, 15, 25, WHITE);
+    DrawText("Lifes: X X X", 10, 15, 25, WHITE);
+    DrawText("Blocks remaining: 000", 320, 15, 25, WHITE);
+
+    if (is_paused)
+        DrawText("Game is paused",
+                 GetScreenWidth() / 2 - MeasureText("Game is paused", 30) / 2,
+                 GetScreenHeight() / 2, 30, WHITE);
 
     EndDrawing();
 }

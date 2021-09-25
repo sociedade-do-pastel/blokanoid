@@ -17,6 +17,7 @@ public:
     Entity* addEntity();
     void drawEntities();
     void checkCollision();
+	void pause(bool state);
 
 private:
     std::vector<std::unique_ptr<Entity>> entities;

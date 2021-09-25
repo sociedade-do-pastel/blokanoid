@@ -54,5 +54,5 @@ public:
 
 private:
     std::vector<std::unique_ptr<AbstractComponent>> m_components{};
-    State m_state{State::Paused};
+    State m_state{State::Active};
 };

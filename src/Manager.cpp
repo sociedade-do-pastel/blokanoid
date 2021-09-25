@@ -11,8 +11,10 @@ Manager::~Manager()
 
 void Manager::update()
 {
-    for (auto& e : entities)
-        e->update();
+    for (auto& e : entities) {
+        if (!(e->getState() == Entity::State::Paused))
+            e->update();
+    }
 }
 
 void Manager::refresh()
@@ -22,7 +24,7 @@ void Manager::refresh()
             return true;
         return false;
     };
-	
+
     entities.erase(std::remove_if(entities.begin(), entities.end(), eraseFunc),
                    entities.end());
 }
@@ -70,5 +72,17 @@ void Manager::checkCollision()
                 c2->executeCallback(c1->getTag(), colRec, rec1);
             }
         }
+    }
+}
+
+void Manager::pause(bool state)
+{
+    if (state) {
+        for (auto& e : entities)
+            e->setState(Entity::State::Active);
+    }
+    else {
+        for (auto& e : entities)
+            e->setState(Entity::State::Paused);
     }
 }

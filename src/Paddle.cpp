@@ -6,7 +6,7 @@ void Paddle::makeEntity(Entity* e, Vector2 pos, Vector2 size)
     e->addComponent<MovementComponent>();
     e->addComponent<InputComponent>(inputHandler);
     e->addComponent<CollisionComponent>("paddle", collisionCallback);
-    e->addComponent<ColorComponent>(Color{0, 0, 255, 100});
+    e->addComponent<ColorComponent>(ORANGE);
     e->addComponent<DrawComponent>();
 }
 

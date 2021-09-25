@@ -6,6 +6,8 @@
 #include "Components.hpp"
 #include "Manager.hpp"
 
+#define GAP 2
+
 class BlockMap
 {
 public:
@@ -22,9 +24,9 @@ public:
                 if (v.at(i).at(j) == 0)
                     continue;
 
-                Block::makeEntity(m->addEntity(), pos.x + blockW * j,
-                                  pos.y + blockH * i, blockW, blockH,
-                                  v.at(i).at(j));
+                Block::makeEntity(m->addEntity(), pos.x + blockW * j + GAP,
+                                  pos.y + blockH * i + GAP, blockW - GAP,
+                                  blockH - GAP, v.at(i).at(j));
             }
         }
     }

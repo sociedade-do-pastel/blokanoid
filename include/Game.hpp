@@ -27,4 +27,5 @@ private:
     void draw();
 
     Manager m_manager{};
+	bool is_paused{false};
 };
