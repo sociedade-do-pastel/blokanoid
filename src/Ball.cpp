@@ -1,9 +1,10 @@
 #include "../include/Ball.hpp"
 
-void Ball::makeEntity(Entity* e, int x, int y, int w, int h, Color color)
+void Ball::makeEntity(Entity* e, int x, int y, int w, int h, float speed,
+                      Color color)
 {
     e->addComponent<TransformComponent>(x, y, w, h);
-    e->addComponent<MovementComponent>(Vector2{1, -1});
+    e->addComponent<MovementComponent>(Vector2{1, -1}, speed);
     e->addComponent<CollisionComponent>("ball", collisionCallback);
     e->addComponent<ColorComponent>(color);
     e->addComponent<DrawComponent>();
@@ -13,7 +14,7 @@ void Ball::collisionCallback(Entity* self, std::string tag, Rectangle colRec,
                              Rectangle otherRec)
 {
     auto m = self->getComponent<TransformComponent>();
-
+	
     if (tag == "block" || tag == "wall") {
 
         // bateu horizontalmente
@@ -27,7 +28,7 @@ void Ball::collisionCallback(Entity* self, std::string tag, Rectangle colRec,
         }
 
         // bateu verticalmente
-        else if (colRec.width >= colRec.height) {
+        if (colRec.width >= colRec.height) {
             if (m->position.y >= colRec.y)
                 m->position.y += colRec.height;
             else

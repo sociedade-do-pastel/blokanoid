@@ -2,7 +2,7 @@
 
 TransformComponent::TransformComponent(float x, float y, float w, float h,
                                        int scale)
-    : position({x, y}), size({w, h}), scale(scale)
+    : position({x, y}), m_size({w, h}), scale(scale)
 {
 }
 
@@ -20,5 +20,6 @@ void TransformComponent::update()
 
 Rectangle TransformComponent::getRec() const
 {
-    return Rectangle{position.x, position.y, size.x * scale, size.y * scale};
+    return Rectangle{position.x, position.y, m_size.x * scale,
+                     m_size.y * scale};
 }

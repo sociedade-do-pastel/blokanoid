@@ -1,6 +1,7 @@
 #include "../include/MovementComponent.hpp"
 
-MovementComponent::MovementComponent(Vector2 v) : direction(v)
+MovementComponent::MovementComponent(Vector2 v, float speed)
+    : direction(v), speed(speed)
 {
 }
 
@@ -16,7 +17,6 @@ void MovementComponent::init()
 
 void MovementComponent::update()
 {
-    m_transform->velocity = direction;
-    m_transform->position.x += m_transform->velocity.x * m_transform->speed;
-    m_transform->position.y += m_transform->velocity.y * m_transform->speed;
+    m_transform->position.x += direction.x * speed;
+    m_transform->position.y += direction.y * speed;
 }

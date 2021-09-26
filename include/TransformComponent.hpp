@@ -16,10 +16,8 @@ public:
 	Rectangle getRec() const;
 
     Vector2 position;
-    Vector2 size;
-    Vector2 velocity{0, 0};
     int scale;
-    int speed{4};
 
 private:
+	Vector2 m_size;
 };

@@ -1,12 +1,13 @@
 #include "../include/Paddle.hpp"
 
-void Paddle::makeEntity(Entity* e, Vector2 pos, Vector2 size)
+void Paddle::makeEntity(Entity* e, Vector2 pos, Vector2 size, float speed,
+                        Color color)
 {
     e->addComponent<TransformComponent>(pos.x, pos.y, size.x, size.y);
-    e->addComponent<MovementComponent>();
+    e->addComponent<MovementComponent>(Vector2{0, 0}, speed);
     e->addComponent<InputComponent>(inputHandler);
     e->addComponent<CollisionComponent>("paddle", collisionCallback);
-    e->addComponent<ColorComponent>(ORANGE);
+    e->addComponent<ColorComponent>(color);
     e->addComponent<DrawComponent>();
 }
 
@@ -24,8 +25,8 @@ void Paddle::inputHandler(Entity* self)
 void Paddle::collisionCallback(Entity* self, std::string tag, Rectangle colRec,
                                Rectangle otherRec)
 {
-	auto m = self->getComponent<TransformComponent>();
-	
+    auto m = self->getComponent<TransformComponent>();
+
     if (tag == "wall") {
         if (m->position.x >= colRec.x)
             m->position.x += colRec.width;

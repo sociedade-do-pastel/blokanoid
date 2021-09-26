@@ -32,5 +32,7 @@ private:
     Entity* m_rightWall{nullptr};
 
     Manager m_manager{};
-    bool is_paused{false};
+    bool m_isPaused{false};
+	bool m_gameOver{false};
+	int m_lifes{0};
 };

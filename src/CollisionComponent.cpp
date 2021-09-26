@@ -34,7 +34,14 @@ std::string CollisionComponent::getTag() const
 
 Rectangle CollisionComponent::getRec() const
 {
-    return m_transform->getRec();
+    auto rec = m_transform->getRec();
+
+    rec.x -= 1;
+    rec.y -= 1;
+    rec.width += 1;
+    rec.height += 1;
+
+    return rec;
 }
 
 void CollisionComponent::executeCallback(std::string tag, Rectangle colRec,
