@@ -1,6 +1,6 @@
 #include "../include/Entity.hpp"
 
-Entity::Entity()
+Entity::Entity(Manager* m) : m_manager(m)
 {
 }
 
@@ -28,6 +28,11 @@ void Entity::removeComponent(AbstractComponent* comp)
 Entity::State Entity::getState() const
 {
     return m_state;
+}
+
+Manager* Entity::getManager() const
+{
+	return m_manager;
 }
 
 void Entity::setState(State s)

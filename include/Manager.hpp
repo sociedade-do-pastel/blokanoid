@@ -3,8 +3,11 @@
 #include <algorithm>
 #include <memory>
 #include <vector>
-#include "Components.hpp"
+#include "AbstractComponent.hpp"
 #include "Entity.hpp"
+
+// forward declaration
+class Entity;
 
 class Manager
 {
@@ -15,9 +18,10 @@ public:
     void update();
     void refresh();
     Entity* addEntity();
-    void drawEntities();
-    void checkCollision();
-	void pause(bool state);
+    void pause(bool state);
+
+    std::vector<AbstractComponent*> drawnableComponents;
+	std::vector<AbstractComponent*> collidableComponents;
 
 private:
     std::vector<std::unique_ptr<Entity>> entities;

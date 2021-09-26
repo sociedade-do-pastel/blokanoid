@@ -26,6 +26,11 @@ private:
     void update();
     void draw();
 
+    Entity* m_paddle{nullptr};
+    Entity* m_ball{nullptr};
+    Entity* m_leftWall{nullptr};
+    Entity* m_rightWall{nullptr};
+
     Manager m_manager{};
-	bool is_paused{false};
+    bool is_paused{false};
 };

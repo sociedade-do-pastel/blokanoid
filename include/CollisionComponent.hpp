@@ -5,6 +5,7 @@
 #include <string>
 #include "AbstractComponent.hpp"
 #include "Entity.hpp"
+#include "Manager.hpp"
 #include "TransformComponent.hpp"
 
 class CollisionComponent : public AbstractComponent
@@ -19,11 +20,13 @@ public:
     void update() override;
 
     std::string getTag() const;
+    Rectangle getRec() const;
 
     void executeCallback(std::string tag, Rectangle colRec, Rectangle otherRec);
 
 private:
     std::string m_tag;
+    TransformComponent* m_transform{nullptr};
     std::function<void(Entity*, std::string, Rectangle, Rectangle)>
         m_callbackFunction;
 };

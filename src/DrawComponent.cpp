@@ -6,6 +6,11 @@ DrawComponent::DrawComponent()
 
 DrawComponent::~DrawComponent()
 {
+    auto& v = m_owner->getManager()->drawnableComponents;
+
+    v.erase(std::remove_if(v.begin(), v.end(),
+                           [this](auto e) { return e == this; }),
+            v.end());
 }
 
 void DrawComponent::init()
@@ -15,6 +20,8 @@ void DrawComponent::init()
 
     m_transform = m_owner->getComponent<TransformComponent>();
     m_color     = m_owner->getComponent<ColorComponent>();
+
+    m_owner->getManager()->drawnableComponents.push_back(this);
 }
 
 void DrawComponent::update()
@@ -23,7 +30,6 @@ void DrawComponent::update()
 
 void DrawComponent::draw()
 {
-    Vector2 size = {m_transform->size.x * m_transform->scale,
-                    m_transform->size.y * m_transform->scale};
-    DrawRectangleV(m_transform->position, size, m_color->color);
+	Rectangle rec = m_transform->getRec();
+	DrawRectangleRec(rec, m_color->color);
 }

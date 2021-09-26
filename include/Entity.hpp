@@ -6,7 +6,10 @@
 #include <vector>
 #include "AbstractComponent.hpp"
 
+// forward declaration
 class AbstractComponent;
+class Manager;
+
 class Entity
 {
 public:
@@ -17,7 +20,7 @@ public:
         Dead
     };
 
-    Entity();
+    Entity(Manager* m);
     ~Entity();
 
     void init();
@@ -38,6 +41,7 @@ public:
 
     // getters
     State getState() const;
+	Manager* getManager() const;
 
     template <typename T> T* getComponent() const
     {
@@ -55,4 +59,5 @@ public:
 private:
     std::vector<std::unique_ptr<AbstractComponent>> m_components{};
     State m_state{State::Active};
+	Manager* m_manager{nullptr};
 };

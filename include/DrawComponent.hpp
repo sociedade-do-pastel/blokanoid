@@ -2,8 +2,9 @@
 
 #include <raylib.h>
 #include "AbstractComponent.hpp"
-#include "TransformComponent.hpp"
 #include "ColorCompoment.hpp"
+#include "Manager.hpp"
+#include "TransformComponent.hpp"
 
 class DrawComponent : public AbstractComponent
 {
@@ -18,5 +19,5 @@ public:
 
 private:
     TransformComponent* m_transform{nullptr};
-	ColorComponent* m_color{nullptr};
+    ColorComponent* m_color{nullptr};
 };

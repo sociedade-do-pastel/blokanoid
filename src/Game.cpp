@@ -26,22 +26,26 @@ bool Game::init(const char* title, int width, int height, bool isFullscreen,
     InitWindow(width, height, title);
     SetTargetFPS(targetFPS);
 
-    BlockMap::mountMap(&m_manager, mapeiro, {20, 60},
-                       {GetScreenWidth() - 40.0f, GetScreenHeight() - 200.0f});
+    BlockMap::mountMap(&m_manager, mapeiro, {5, 55},
+                       {GetScreenWidth() - 10.0f, GetScreenHeight() - 300.0f});
 
-    Wall::makeEntity(m_manager.addEntity(), {0, 50},
-                     {5, (float)GetScreenHeight()});
+    m_leftWall = m_manager.addEntity();
+    Wall::makeEntity(m_leftWall, {0, 50}, {5, (float)GetScreenHeight()});
+
     Wall::makeEntity(m_manager.addEntity(), {5, 50},
                      {GetScreenWidth() - 10.0f, 5});
-    Wall::makeEntity(m_manager.addEntity(), {GetScreenWidth() - 5.0f, 50},
+
+    m_rightWall = m_manager.addEntity();
+    Wall::makeEntity(m_rightWall, {GetScreenWidth() - 5.0f, 50},
                      {5, (float)GetScreenHeight()});
 
-    Paddle::makeEntity(m_manager.addEntity(),
+    m_paddle = m_manager.addEntity();
+    Paddle::makeEntity(m_paddle,
                        {GetScreenWidth() / 2.0f, GetScreenHeight() - 25.0f},
                        {150.0f, 20.0f});
 
-    Ball::makeEntity(m_manager.addEntity(), GetScreenWidth() / 2.0, 680, 10, 10,
-                     WHITE);
+    m_ball = m_manager.addEntity();
+    Ball::makeEntity(m_ball, GetScreenWidth() / 2.0, 680, 10, 10, WHITE);
 
     return IsWindowReady();
 }
@@ -72,7 +76,31 @@ void Game::processInput()
 void Game::update()
 {
     m_manager.update();
-    m_manager.checkCollision();
+
+    auto colFunc = [](CollisionComponent* c1, CollisionComponent* c2) {
+        auto rec1 = c1->getRec();
+        auto rec2 = c2->getRec();
+
+        if (CheckCollisionRecs(rec1, rec2)) {
+            Rectangle colRec = GetCollisionRec(rec1, rec2);
+
+            c1->executeCallback(c2->getTag(), colRec, rec2);
+            c2->executeCallback(c1->getTag(), colRec, rec1);
+        }
+    };
+
+	// check collision between ball and everything
+    for (auto& c : m_manager.collidableComponents)
+        colFunc(m_ball->getComponent<CollisionComponent>(),
+                dynamic_cast<CollisionComponent*>(c));
+
+	// check collision between paddle and leftwall
+    colFunc(m_paddle->getComponent<CollisionComponent>(),
+            m_leftWall->getComponent<CollisionComponent>());
+
+	// check collision between paddle and rightwall
+    colFunc(m_paddle->getComponent<CollisionComponent>(),
+            m_rightWall->getComponent<CollisionComponent>());
 }
 
 void Game::draw()
@@ -80,7 +108,10 @@ void Game::draw()
     BeginDrawing();
 
     ClearBackground({30, 30, 30});
-    m_manager.drawEntities();
+
+    for (auto& c : m_manager.drawnableComponents)
+        dynamic_cast<DrawComponent*>(c)->draw();
+
     DrawText("Lifes: X X X", 10, 15, 25, WHITE);
     DrawText("Blocks remaining: 000", 320, 15, 25, WHITE);
 
