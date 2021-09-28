@@ -14,6 +14,7 @@ public:
     void update() override;
 
 	Rectangle getRec() const;
+	Vector2 getCenter() const;
 
     Vector2 position;
     int scale;

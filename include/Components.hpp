@@ -7,4 +7,5 @@
 #include "InputComponent.hpp"
 #include "LayerComponent.hpp"
 #include "MovementComponent.hpp"
+#include "PositionSyncComponent.hpp"
 #include "TransformComponent.hpp"

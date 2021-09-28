@@ -11,4 +11,7 @@ public:
                            Color color);
     static void collisionCallback(Entity* self, std::string tag,
                                   Rectangle colRec, Rectangle otherRec);
+    static void unsyncFunc(Entity* self);
+    static float speed;
+	static bool ballRunning;
 };

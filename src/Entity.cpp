@@ -21,8 +21,12 @@ void Entity::update()
 
 void Entity::removeComponent(AbstractComponent* comp)
 {
-    // m_components.erase(std::remove_if(m_components.begin(), m_components.end(),
-    //                                   [comp](auto c) { return c == comp; }));
+    m_components.erase(
+        std::remove_if(m_components.begin(), m_components.end(),
+                       [comp](std::unique_ptr<AbstractComponent>& c) {
+                           return c.get() == comp;
+                       }),
+        m_components.end());
 }
 
 Entity::State Entity::getState() const
@@ -32,10 +36,10 @@ Entity::State Entity::getState() const
 
 Manager* Entity::getManager() const
 {
-	return m_manager;
+    return m_manager;
 }
 
 void Entity::setState(State s)
 {
-	m_state = s;
+    m_state = s;
 }

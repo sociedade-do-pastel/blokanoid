@@ -46,6 +46,9 @@ bool Game::init(const char* title, int width, int height, bool isFullscreen,
     m_ball = m_manager.addEntity();
     Ball::makeEntity(m_ball, GetScreenWidth() / 2.0, 680, 10, 10, 6, WHITE);
 
+    m_ball->addComponent<PositionSyncComponent>(
+        m_paddle->getComponent<TransformComponent>(), Ball::unsyncFunc);
+
     return IsWindowReady();
 }
 
@@ -96,9 +99,15 @@ void Game::update()
     // check if the ball went out of screen
     if (m_ball->getComponent<CollisionComponent>()->getRec().y
         >= GetScreenHeight()) {
+
         m_ball->setState(Entity::State::Dead);
+
         m_ball = m_manager.addEntity();
         Ball::makeEntity(m_ball, GetScreenWidth() / 2.0, 680, 10, 10, 6, WHITE);
+        m_ball->addComponent<PositionSyncComponent>(
+            m_paddle->getComponent<TransformComponent>(), Ball::unsyncFunc);
+
+        Ball::ballRunning = false;
         --m_lifes;
     }
 
@@ -141,10 +150,17 @@ void Game::draw()
              GetScreenWidth() - MeasureText(blocksRemaining.c_str(), 25) - 10,
              15, 25, WHITE);
 
-    if (m_isPaused)
+    if (m_isPaused) {
         DrawText("Game is paused",
                  GetScreenWidth() / 2 - MeasureText("Game is paused", 30) / 2,
                  GetScreenHeight() / 2, 30, WHITE);
+    }
+    else if (!Ball::ballRunning) {
+        DrawText("Press space to launch",
+                 GetScreenWidth() / 2
+                     - MeasureText("Press space to launch", 30) / 2,
+                 GetScreenHeight() / 2, 30, WHITE);
+    }
 
     EndDrawing();
 }
