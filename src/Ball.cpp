@@ -31,7 +31,7 @@ void Ball::collisionCallback(Entity* self, std::string tag, Rectangle colRec,
         }
 
         // bateu verticalmente
-        if (colRec.width >= colRec.height) {
+        else if (colRec.width >= colRec.height) {
             if (m->position.y >= colRec.y)
                 m->position.y += colRec.height;
             else
