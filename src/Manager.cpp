@@ -47,3 +47,10 @@ void Manager::pause(bool state)
             e->setState(Entity::State::Paused);
     }
 }
+
+void Manager::clear()
+{
+    entities.erase(std::remove_if(entities.begin(), entities.end(),
+                                  [](auto& e) { return true; }),
+                   entities.end());
+}

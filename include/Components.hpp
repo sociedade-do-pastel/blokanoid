@@ -8,4 +8,5 @@
 #include "LayerComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionSyncComponent.hpp"
+#include "TextComponent.hpp"
 #include "TransformComponent.hpp"

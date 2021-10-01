@@ -19,6 +19,7 @@ public:
     void refresh();
     Entity* addEntity();
     void pause(bool state);
+	void clear();
 
     std::vector<AbstractComponent*> drawnableComponents;
 	std::vector<AbstractComponent*> collidableComponents;

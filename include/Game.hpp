@@ -1,14 +1,12 @@
 #pragma once
 
+#include <memory>
 #include <raylib.h>
 
-#include "../include/Ball.hpp"
-#include "../include/BlockMap.hpp"
-#include "../include/Components.hpp"
-#include "../include/Entity.hpp"
-#include "../include/Manager.hpp"
-#include "../include/Paddle.hpp"
-#include "../include/Wall.hpp"
+#include "Components.hpp"
+#include "Entity.hpp"
+#include "Manager.hpp"
+#include "States.hpp"
 
 class Game
 {
@@ -16,23 +14,16 @@ public:
     Game();
     ~Game();
 
-    bool init(const char* title, int width, int height, bool isFullscreen,
-              int targetFPS);
+    bool init(const char* title, int width, int height, int targetFPS);
     void runLoop();
     void shutdown();
+    void changeState();
 
 private:
     void processInput();
     void update();
     void draw();
 
-    Entity* m_paddle{nullptr};
-    Entity* m_ball{nullptr};
-    Entity* m_leftWall{nullptr};
-    Entity* m_rightWall{nullptr};
-
     Manager m_manager{};
-    bool m_isPaused{false};
-	bool m_gameOver{false};
-	int m_lifes{0};
+    std::unique_ptr<GameState> m_currentState;
 };
