@@ -1,5 +1,7 @@
 #include "../include/Game.hpp"
 
+bool Game::isGameOver = false;
+
 Game::Game()
 {
 }
@@ -22,7 +24,7 @@ bool Game::init(const char* title, int width, int height, int targetFPS)
 
 void Game::runLoop()
 {
-    while (!WindowShouldClose()) {
+    while (!WindowShouldClose() && !isGameOver) {
         m_manager.refresh();
         processInput();
         update();

@@ -5,7 +5,6 @@ PlayingState::PlayingState(Manager* m, int dif,
     : m_difficulty(dif), m_blockMap(map)
 {
     m_manager = m;
-    m_name    = "playing";
 }
 
 PlayingState::~PlayingState()
@@ -64,13 +63,9 @@ void PlayingState::update()
     colFunc(m_paddle->getComponent<CollisionComponent>(),
             m_rightWall->getComponent<CollisionComponent>());
 
-    // check if the player won
-    if (Block::qtBlock <= 0)
-        m_gameOver = true;
-
-    // check if the player lost
-    if (m_lifes <= 0)
-        m_gameOver = true;
+    // check if the game ended
+    if (Block::qtBlock <= 0 || m_lifes <= 0)
+		GameState::stateChanged = true;
 }
 
 void PlayingState::loadState()
@@ -137,5 +132,6 @@ void PlayingState::draw()
 
 GameState* PlayingState::getNextGameState()
 {
-    return this;
+	GameState* e = new GameOverState(m_manager, m_difficulty, m_lifes, Block::qtBlock);
+    return e;
 }

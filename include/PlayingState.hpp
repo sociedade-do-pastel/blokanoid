@@ -7,6 +7,7 @@
 #include "BlockMap.hpp"
 #include "Components.hpp"
 #include "Entity.hpp"
+#include "GameOverState.hpp"
 #include "GameState.hpp"
 #include "Manager.hpp"
 #include "Paddle.hpp"
@@ -32,9 +33,9 @@ private:
     Entity* m_leftWall{nullptr};
     Entity* m_rightWall{nullptr};
 
-    bool m_gameOver{false};
     bool m_isPaused{false};
     int m_lifes{0};
     int m_difficulty;
+	
     std::vector<std::vector<char>> m_blockMap;
 };

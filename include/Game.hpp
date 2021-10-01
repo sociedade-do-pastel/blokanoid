@@ -5,8 +5,9 @@
 
 #include "Components.hpp"
 #include "Entity.hpp"
+#include "GameState.hpp"
 #include "Manager.hpp"
-#include "States.hpp"
+#include "MenuState.hpp"
 
 class Game
 {
@@ -18,6 +19,8 @@ public:
     void runLoop();
     void shutdown();
     void changeState();
+
+    static bool isGameOver;
 
 private:
     void processInput();

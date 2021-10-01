@@ -3,7 +3,6 @@
 MenuState::MenuState(Manager* m)
 {
     m_manager = m;
-    m_name    = "menu";
 }
 
 MenuState::~MenuState()
@@ -30,6 +29,7 @@ void MenuState::update()
 
 void MenuState::loadState()
 {
+	// Mark normal as default
     buttonController[0] = true;
     buttonController[1] = false;
 
@@ -45,7 +45,7 @@ void MenuState::loadState()
             difficulty                               = 0;
         },
         &buttonController[0]);
-    e->getComponent<ColorComponent>()->color = Color{118, 0, 0, 255};
+	e->getComponent<ColorComponent>()->color = Color{118, 0, 0, 255};
     m_entites.push_back(e);
 
     // Hard button

@@ -24,6 +24,5 @@ public:
 	static bool stateChanged;
 	
 protected:
-    std::string m_name{};
     Manager* m_manager{nullptr};
 };
