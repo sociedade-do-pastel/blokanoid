@@ -1,6 +1,8 @@
 #include "../include/PlayingState.hpp"
 
-PlayingState::PlayingState(Manager* m)
+PlayingState::PlayingState(Manager* m, int dif,
+                           std::vector<std::vector<char>> map)
+    : m_difficulty(dif), m_blockMap(map)
 {
     m_manager = m;
     m_name    = "playing";
@@ -45,7 +47,8 @@ void PlayingState::update()
         m_ball->setState(Entity::State::Dead);
 
         m_ball = m_manager->addEntity();
-        Ball::makeEntity(m_ball, GetScreenWidth() / 2.0, 680, 10, 10, 6, WHITE);
+        Ball::makeEntity(m_ball, GetScreenWidth() / 2.0, 680, 10, 10,
+                         6 + 1 * m_difficulty, WHITE);
         m_ball->addComponent<PositionSyncComponent>(
             m_paddle->getComponent<TransformComponent>(), Ball::unsyncFunc);
 
@@ -74,7 +77,7 @@ void PlayingState::loadState()
 {
     m_lifes = 3;
 
-    BlockMap::mountMap(m_manager, {5, 55},
+    BlockMap::mountMap(m_manager, m_blockMap, {5, 55},
                        {GetScreenWidth() - 10.0f, GetScreenHeight() - 300.0f});
 
     m_leftWall = m_manager->addEntity();
@@ -90,10 +93,11 @@ void PlayingState::loadState()
     m_paddle = m_manager->addEntity();
     Paddle::makeEntity(m_paddle,
                        {GetScreenWidth() / 2.0f, GetScreenHeight() - 25.0f},
-                       {150.0f, 20.0f}, 4, ORANGE);
+                       {150.0f - 50 * m_difficulty, 20.0f}, 4, ORANGE);
 
     m_ball = m_manager->addEntity();
-    Ball::makeEntity(m_ball, GetScreenWidth() / 2.0, 680, 10, 10, 6, WHITE);
+    Ball::makeEntity(m_ball, GetScreenWidth() / 2.0, 680, 10, 10,
+                     6 + 1 * m_difficulty, WHITE);
 
     m_ball->addComponent<PositionSyncComponent>(
         m_paddle->getComponent<TransformComponent>(), Ball::unsyncFunc);
@@ -133,5 +137,5 @@ void PlayingState::draw()
 
 GameState* PlayingState::getNextGameState()
 {
-	return this;
+    return this;
 }

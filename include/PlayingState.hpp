@@ -1,6 +1,7 @@
 #pragma once
 
 #include <raylib.h>
+#include <vector>
 
 #include "Ball.hpp"
 #include "BlockMap.hpp"
@@ -14,7 +15,7 @@
 class PlayingState : public GameState
 {
 public:
-    PlayingState(Manager* m);
+    PlayingState(Manager* m, int dif, std::vector<std::vector<char>> map);
     ~PlayingState();
 
     void init() override;
@@ -34,4 +35,6 @@ private:
     bool m_gameOver{false};
     bool m_isPaused{false};
     int m_lifes{0};
+    int m_difficulty;
+    std::vector<std::vector<char>> m_blockMap;
 };

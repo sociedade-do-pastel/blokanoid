@@ -26,5 +26,6 @@ public:
 
 private:
     std::vector<Entity*> m_entites{};
+	std::vector<std::vector<char>> m_mapRef{};
     std::vector<Entity*> m_map{};
 };

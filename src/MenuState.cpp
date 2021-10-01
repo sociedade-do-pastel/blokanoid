@@ -21,7 +21,8 @@ void MenuState::update()
             m->setState(Entity::State::Dead);
 
         m_map.clear();
-        m_map          = BlockMap::mountMap(m_manager, {20, 300},
+        m_mapRef       = BlockMap::mountRefMap();
+        m_map          = BlockMap::mountMap(m_manager, m_mapRef, {20, 300},
                                    {GetScreenWidth() - 40.0f, 450.0f});
         reconstructMap = false;
     }
@@ -72,9 +73,7 @@ void MenuState::loadState()
     e = m_manager->addEntity();
     Button::makeEntity(e, 20, GetScreenHeight() - 70, GetScreenWidth() - 40, 50,
                        GetScreenWidth() / 2 - 70, 10.f, RED, GREEN, "Start",
-                       [](Entity* e) {
-						   GameState::stateChanged = true;
-					   });
+                       [](Entity* e) { GameState::stateChanged = true; });
     m_entites.push_back(e);
 }
 
@@ -93,6 +92,6 @@ void MenuState::draw()
 
 GameState* MenuState::getNextGameState()
 {
-	GameState* e = new PlayingState(m_manager);
-	return e;
+    GameState* e = new PlayingState(m_manager, difficulty, m_mapRef);
+    return e;
 }
