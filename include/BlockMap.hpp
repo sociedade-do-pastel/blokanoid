@@ -41,7 +41,8 @@ public:
         int c      = 12;
         int blockW = size.x / c;
         int blockH = size.y / r;
-
+		Block::qtBlock = 0;
+		
         std::vector<Entity*> entities;
 
         for (int i{0}; i < r; ++i) {
