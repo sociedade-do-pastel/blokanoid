@@ -14,22 +14,31 @@
 | Guilherme Ormond Sampaio        | 22218007-7 |
 |---------------------------------+------------|
 
-* TODO Progresso [0/3]
+* DONE Progresso [3/3]
 
-- [-] Escrita do README
+- [X] Escrita do README
   - [X] Introdução
   - [X] Membros do grupo
   - [X] Controle básico de progresso
-  - [ ] Instruções de compilação
-- [ ] Definição de um Makefile
-  - [ ] Compilação para sistemas GNU/Linux
-  - [ ] Compilação para Windows (mingw32)
-- [ ] O jogo
-  - [ ] Classe ~Game~
-  - [ ] Classe/struct ~Level~
-  - [ ] *undefined* ~Menu~
-  - [ ] Implementação de *power ups*
-  - [ ] Classe ~Player~
+  - [X] Instruções de compilação
+- [X] Definição de um Makefile
+  - [X] Compilação para sistemas GNU/Linux
+  - [X] Compilação para Windows (mingw32)
+- [X] O jogo
 
-* TODO Instruções de compilação
+* DONE Instruções de compilação
 
+
+** Windows
+
+A compilação do jogo foi testada no Windows com o [[https://www.msys2.org/][MSYS2]] e mingw (g++ e make) de 64 bits. Recomendamos que a biblioteca seja compilada ou obtida a partir da aba de [[https://github.com/raysan5/raylib/releases][releases]] (utilize a versão 3.7.0) e seu conteúdo "colado" na raíz do projeto. 
+
+Basta utilizar o ~Makefile.win~ para prosseguir com a compilação. 
+
+: make -j <numero-jobs> -f Makefile.win
+
+** GNU/Linux
+
+A ~raylib~ está presente nos repositórios oficiais do Arch linux. Para outros os casos será necessária a [[https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux][compilação e/ou instalação da biblioteca.]] Após, basta utilizar o make na raíz do projeto:
+
+: make -j <numero-jobs>

@@ -1,0 +1,40 @@
+# This Makefile was specifically designed for compilling on windows
+
+# if we're crosscompiling FOR windows
+CROSS = 
+# executable name
+EXECUTABLE = blokanoid.exe
+# default directories
+SRC_DIR = src
+OBJ_DIR = objs
+WIN_DIR = raylib-3.7.0_win64_mingw-w64
+WIN_LIBS = -static -lraylib -lraylibdll -lopengl32 -lgdi32 -lwinmm
+
+# check if we're cross compiling
+ifdef CROSS
+CC = x86_64-w64-mingw32-g++
+else
+CC = g++
+endif
+
+# files that're gonna get read/produced by either the compiler or linker
+SRC := $(wildcard $(SRC_DIR)/*.cpp)
+OBJS := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(notdir $(SRC)))
+DEPS := $(patsubst %.o, %.d, $(OBJS))
+
+ALL: $(OBJ_DIR) $(OBJS)
+	$(CC) $(CC_FLAGS) $(OBJS) -o $(EXECUTABLE)  -L./$(WIN_DIR)/lib/ $(WIN_LIBS)
+
+-include $(DEPS)
+
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp 
+	$(CC) $(CC_FLAGS) -MD -o $@ -c $< -I./$(WIN_DIR)/include/
+
+$(OBJ_DIR):
+	mkdir $@
+
+.PHONY: clean
+
+clean:
+	rm $(EXECUTABLE) $(OBJS) $(DEPS)
+
